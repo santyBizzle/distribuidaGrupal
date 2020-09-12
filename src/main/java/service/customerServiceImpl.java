@@ -31,7 +31,7 @@ import model.Customer;
 
 public class customerServiceImpl implements customerService {
 
-	public String URL_API_CUSTOMER = "";
+	public String URL_API_CUSTOMER ="https://cabezas-distribuida41.herokuapp.com";
 	private HttpClient httpClient = HttpClientBuilder.create().build();
 	private Gson gson = new Gson();
 

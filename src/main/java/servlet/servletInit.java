@@ -174,7 +174,6 @@ public class servletInit extends HttpServlet {
 
 			System.out.println("here>>>>" + listorder.get(0));
 		} catch (IOException | JAXBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		request.setAttribute("listorder", listorder);
@@ -213,7 +212,7 @@ public class servletInit extends HttpServlet {
 	public void updateCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, SQLException {
 		Long id = Long.parseLong(request.getParameter("id_customer"));
-		System.out.println("actualizar>>" + id);
+
 		String name = request.getParameter("name");
 		String surname = request.getParameter("surname");
 		Customer customer = new Customer(id, name, surname);
@@ -222,37 +221,32 @@ public class servletInit extends HttpServlet {
 		try {
 			customerServicio.actualizar(customer);
 		} catch (IOException | JAXBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// manejadorDb.updateUser(persona);
 		response.sendRedirect("list");
 	}
 
 	public void updateOrder(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 
 		Long id = Long.parseLong(request.getParameter("id_order"));
-		System.out.println("actualizar>>" + id);
+
+		System.out.println("actualizarOderId>>" + id);
 		String item = request.getParameter("item");
 		int precio = Integer.parseInt(request.getParameter("precio"));
 		int customer_id = Integer.parseInt(request.getParameter("customer_id"));
-
 		Orders persona = new Orders(id, item, precio, customer_id);
-		System.out.println("person" + persona);
 
 		try {
 			orderServicio.actualizar(persona);
 		} catch (IOException | JAXBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// manejadorDb.updateUser(persona);
 		response.sendRedirect("list");
 	}
 
 	public void showNewForm(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-		RequestDispatcher dispatcher = request.getRequestDispatcher("user-form.jsp");
+		RequestDispatcher dispatcher = request.getRequestDispatcher("customer-form.jsp");
 		dispatcher.forward(request, response);
 
 	}
@@ -275,10 +269,9 @@ public class servletInit extends HttpServlet {
 			System.out.println("here insert>>>>" + newcustomer.getName());
 			customerServicio.insertar(newcustomer);
 		} catch (InterruptedException | ExecutionException | TimeoutException | IOException | JAXBException e) {
-			// TODO Auto-generated catch block
+
 			e.printStackTrace();
 		}
-		// manejadorDb.insertUser(newperson);
 		response.sendRedirect("list");
 
 	}
@@ -287,7 +280,6 @@ public class servletInit extends HttpServlet {
 
 		String item = request.getParameter("item");
 		int precio = Integer.parseInt(request.getParameter("precio"));
-		// Int customer_id= request.getParameter("customer_id");
 		int customer_id = Integer.parseInt(request.getParameter("customer_id"));
 		Orders newOrden = new Orders(item, precio, customer_id);
 		System.out.println("order precio>>>>" + newOrden.getPrecio());
@@ -296,10 +288,8 @@ public class servletInit extends HttpServlet {
 			System.out.println("here insert order>>>>" + newOrden.getItem());
 			orderServicio.insertar(newOrden);
 		} catch (InterruptedException | ExecutionException | TimeoutException | IOException | JAXBException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		// manejadorDb.insertUser(newperson);
 		response.sendRedirect("list");
 
 	}
@@ -318,8 +308,7 @@ public class servletInit extends HttpServlet {
 		} catch (IOException | JAXBException e) {
 			e.printStackTrace();
 		} finally {
-			// System.out.println("req"+request.getAttribute(getServletInfo()));
-			RequestDispatcher ds = request.getRequestDispatcher("user-form.jsp");
+			RequestDispatcher ds = request.getRequestDispatcher("customer-form.jsp");
 			ds.forward(request, response);
 
 		}
