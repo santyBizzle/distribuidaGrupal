@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.enterprise.context.ApplicationScoped;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
 import javax.ws.rs.POST;
@@ -20,7 +21,8 @@ import com.distribuida.service.ServicioCustomer;
 @ApplicationScoped
 public class CustomerRest {
 	
-	@Inject private ServicioCustomer servicio;	
+	@Inject
+	private ServicioCustomer servicio;	
 	
 	@GET @Path("/")
 	@Produces(value=MediaType.APPLICATION_JSON)
@@ -35,18 +37,21 @@ public class CustomerRest {
 	}
 	
 	@POST @Path("/insertar")
+	@Transactional
 	@Produces(value=MediaType.APPLICATION_JSON)
 	public void insert(Customer c){
 		servicio.insertar(c);
 	}
 	
 	@PUT @Path("/actualizar")
+	@Transactional
 	@Produces(value=MediaType.APPLICATION_JSON)
 	public void update(Customer c){
 		servicio.actualizar(c);
 	}
 	
 	@DELETE @Path("/eliminar/{id}")
+	@Transactional
 	public void delete(@PathParam("id") Integer id){
 		servicio.eliminar(id);
 	}

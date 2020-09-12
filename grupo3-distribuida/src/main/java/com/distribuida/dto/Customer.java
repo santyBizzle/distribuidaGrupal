@@ -16,7 +16,7 @@ public class Customer implements Serializable{
 	private static final long serialVersionUID = 1L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Integer id;
 	
 	private String name;
@@ -26,9 +26,9 @@ public class Customer implements Serializable{
 	public Customer() {
 		
 	}
-
-	public Customer(Integer id, String name, String surname) {
-		this.id = id;
+	
+	public Customer(String name, String surname) {
+		super();
 		this.name = name;
 		this.surname = surname;
 	}

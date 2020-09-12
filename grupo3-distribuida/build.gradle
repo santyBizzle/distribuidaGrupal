@@ -47,7 +47,14 @@ dependencies {
   implementation "io.thorntail:cdi"
   implementation "io.thorntail:jaxrs"
   implementation "io.thorntail:jpa"
+  implementation "io.thorntail:jsonb"
+  implementation "io.thorntail:datasources"
+  implementation "io.thorntail:hibernate"
   implementation "commons-io:commons-io:2.4"
+  implementation "org.postgresql:postgresql:42.2.8"
+  
+  //compile group: 'org.jboss.resteasy', name: 'resteasy-client', version: '3.0.17.Final'
+  //implementation "com.h2database:h2:1.4.187"
 
 }
 
