@@ -45,7 +45,7 @@ public class ServicioCustomerImpl implements ServicioCustomer{
 	}
 
 	@Override
-	public void eliminar(Integer id) {
+	public void eliminar(Long id) {
 		try {
 			helper.getEntityManager().remove(helper.getEntityManager().find(Customer.class, id));;
 		} catch (Exception e) {
@@ -54,7 +54,7 @@ public class ServicioCustomerImpl implements ServicioCustomer{
 	}
 
 	@Override
-	public Customer buscarPorId(Integer id) {
+	public Customer buscarPorId(Long id) {
 		Customer customer = new Customer();
 		try {
 			customer = helper.getEntityManager().find(Customer.class, id);

@@ -32,7 +32,7 @@ public class CustomerRest {
 	
 	@GET @Path("/{id}")
 	@Produces(value=MediaType.APPLICATION_JSON)
-	public Customer findById(@PathParam("id") Integer id){
+	public Customer findById(@PathParam("id") Long id){
 		return servicio.buscarPorId(id);
 	}
 	
@@ -52,7 +52,7 @@ public class CustomerRest {
 	
 	@DELETE @Path("/eliminar/{id}")
 	@Transactional
-	public void delete(@PathParam("id") Integer id){
+	public void delete(@PathParam("id") Long id){
 		servicio.eliminar(id);
 	}
 	

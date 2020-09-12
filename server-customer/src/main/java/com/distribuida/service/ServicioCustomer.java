@@ -12,7 +12,7 @@ public interface ServicioCustomer {
 	
 	public void actualizar(Customer c);
 	
-	public void eliminar(Integer id);
+	public void eliminar(Long id);
 	
-	Customer buscarPorId(Integer id);
+	Customer buscarPorId(Long id);
 }
