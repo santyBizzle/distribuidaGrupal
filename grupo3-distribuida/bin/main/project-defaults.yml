@@ -1,0 +1,13 @@
+thorntail:
+  datasources:
+    data-sources:
+      MyDS:
+        driver-name: org.postgresql
+        connection-url: jdbc:postgresql://localhost:5432/gunza-prueba
+        user-name: postgres
+        password: 120291
+    jdbc-drivers:
+      org.postgresql:
+        driver-class-name: org.postgresql.Driver
+        driver-xa-datasource-class-name: org.postgresql.xa.PGXADataSource
+        driver-module-name: org.postgresql

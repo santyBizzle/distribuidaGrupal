@@ -1,0 +1,58 @@
+buildscript {
+  String thorntailVersion = System.getProperty('thorntailVersion') ?: VERSION_THORNTAIL
+
+  repositories {
+    mavenLocal()
+    mavenCentral()
+    maven {
+      url "https://oss.sonatype.org/content/repositories/snapshots/"
+    }
+  }
+
+  dependencies {
+    classpath "io.thorntail:thorntail-gradle-plugin:$thorntailVersion"
+  }
+}
+
+String thorntailVersion = System.getProperty('thorntailVersion') ?: VERSION_THORNTAIL
+
+apply plugin: 'thorntail'
+apply plugin: 'war'
+
+thorntail {
+  properties {
+    swarm.http.host = 'localhost'
+    swarm.http.port = 8080
+  }
+}
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+  maven {
+    url 'https://maven.repository.redhat.com/nexus/content/repositories/thirdparty-releases/'
+  }
+  maven {
+    url "https://repo.gradle.org/gradle/libs-releases-local"
+  }
+  maven {
+    url "https://oss.sonatype.org/content/repositories/snapshots/"
+  }
+}
+
+dependencies {
+
+  // Include the Thorntail BOM for compilation.
+  implementation enforcedPlatform("io.thorntail:bom-all:$thorntailVersion")
+  implementation "io.thorntail:cdi"
+  implementation "io.thorntail:jaxrs"
+  implementation "io.thorntail:jpa"
+  implementation "commons-io:commons-io:2.4"
+
+}
+
+test {
+  testLogging {
+    showStandardStreams = true
+  }
+}
