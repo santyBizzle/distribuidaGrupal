@@ -68,7 +68,7 @@ public class servletInit extends HttpServlet {
 
 			break;
 		case "/insertOrder":
-			try {
+			try { 
 				System.out.println("paracrear");
 
 				insertOrder(req, resp);
@@ -133,10 +133,27 @@ public class servletInit extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		case "/listarOrders":
+			try {
+				System.out.println("ListandoOrdenes");
+				listarOrdenes(req, resp);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			break;
+		case "/listarCustomers":
+			try {
+				System.out.println("ListandoCustomers");
+				listarCustomers(req, resp);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			break;
 		default:
 
 			try {
-				listAll(req, resp);
+				//listAll(req, resp);
+				inicio(req, resp);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -147,6 +164,44 @@ public class servletInit extends HttpServlet {
 
 	/***********************************************************/
 
+	public void inicio(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, SQLException, ServletException {
+	
+		RequestDispatcher dispatcher = request.getRequestDispatcher("inicio.jsp");
+		dispatcher.forward(request, response);
+
+	}
+	public void listarOrdenes(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, SQLException, ServletException {
+		List<Orders> listorder = null;
+		try {
+			listorder = orderServicio.findAllOrders();
+			System.out.println("here>>>>" + listorder.get(0));
+		} catch (IOException | JAXBException e) {
+			e.printStackTrace();
+		}
+
+		request.setAttribute("listorder", listorder);
+		RequestDispatcher dispatcher = request.getRequestDispatcher("order-list.jsp");
+		dispatcher.forward(request, response);
+
+	}
+	
+	public void listarCustomers(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, SQLException, ServletException {
+		List<Customer> listcustomer = null;
+		try {
+			listcustomer = customerServicio.findAllCustomers();
+		} catch (IOException | JAXBException e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("listcustomer", listcustomer);
+
+		RequestDispatcher dispatcher = request.getRequestDispatcher("customer-list.jsp");
+		dispatcher.forward(request, response);
+
+	}
+	
 	public void listAll(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, SQLException, ServletException {
 		List<Customer> listcustomer = null;
@@ -193,7 +248,7 @@ public class servletInit extends HttpServlet {
 			e.printStackTrace();
 		}
 		System.out.println("a lsitar");
-		response.sendRedirect("list");
+		response.sendRedirect("listarCustomers");
 	}
 
 	public void deleteOrder(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
@@ -206,7 +261,7 @@ public class servletInit extends HttpServlet {
 			e.printStackTrace();
 		}
 		System.out.println("a lsitar");
-		response.sendRedirect("list");
+		response.sendRedirect("listarOrders");
 	}
 
 	public void updateCustomer(HttpServletRequest request, HttpServletResponse response)
@@ -223,7 +278,7 @@ public class servletInit extends HttpServlet {
 		} catch (IOException | JAXBException e) {
 			e.printStackTrace();
 		}
-		response.sendRedirect("list");
+		response.sendRedirect("listarCustomers");
 	}
 
 	public void updateOrder(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
@@ -241,7 +296,7 @@ public class servletInit extends HttpServlet {
 		} catch (IOException | JAXBException e) {
 			e.printStackTrace();
 		}
-		response.sendRedirect("list");
+		response.sendRedirect("listarOrders");
 	}
 
 	public void showNewForm(HttpServletRequest request, HttpServletResponse response)
@@ -272,7 +327,7 @@ public class servletInit extends HttpServlet {
 
 			e.printStackTrace();
 		}
-		response.sendRedirect("list");
+		response.sendRedirect("listarCustomers");
 
 	}
 
@@ -290,7 +345,7 @@ public class servletInit extends HttpServlet {
 		} catch (InterruptedException | ExecutionException | TimeoutException | IOException | JAXBException e) {
 			e.printStackTrace();
 		}
-		response.sendRedirect("list");
+		response.sendRedirect("listarOrders");
 
 	}
 

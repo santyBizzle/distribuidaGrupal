@@ -4,6 +4,10 @@
 <html>
 <head>
 <title>User Management Application</title>
+<link href="webjars/bootstrap/4.5.2/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -13,10 +17,10 @@
 
 	<header>
 		<nav class="navbar navbar-expand-md navbar-dark"
-			style="background-color: tomato">
+			style="background-color: red">
 			<div>
-				<a href="https://www.javaguides.net" class="navbar-brand"> User
-					Management App </a>
+				<h3 class="text-center" style="color: white-space:;" align="center">UNIVERSIDAD
+					CENTRAL DEL ECUADOR - PROGRAMACION DISTRIBUIDA - GRUPO 3</h3>
 			</div>
 
 			<ul class="navbar-nav">
@@ -32,7 +36,6 @@
 
 				<c:if test="${order != null}">
 					<form action="updateOrder" method="put">
-		
 				</c:if>
 				<c:if test="${order == null}">
 					<form action="insertOrder" method="post">
@@ -59,19 +62,27 @@
 						value="<c:out value='${order.item}' />" class="form-control"
 						name="item">
 				</fieldset>
-			
+
+
 				<fieldset class="form-group">
 					<label>Precio</label> <input type="text"
-						value="<c:out value='${order.precio}' />"
-						class="form-control" name="precio">
+						value="<c:out value='${order.precio}' />" class="form-control"
+						name="precio">
 				</fieldset>
-			<fieldset class="form-group">
+				<fieldset class="form-group">
 					<label>Customer Id</label> <input type="text"
 						value="<c:out value='${order.customer_id}' />"
 						class="form-control" name="customer_id">
 				</fieldset>
-
-
+				<!-- 
+				<fieldset class="form-group">
+					<label>Customer</label> <select name="Customer" id="customer">
+						<option value="volvo">Byron</option>
+						<option value="saab">Johann</option>
+						<option value="mercedes">Wally</option>
+					</select>
+				</fieldset>
+				 -->
 				<button type="submit" class="btn btn-success">Save</button>
 				</form>
 			</div>
