@@ -9,6 +9,7 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "orders")
@@ -29,6 +30,11 @@ public class Pedidos implements Serializable {
 	private String item; //declaramos de forma publica la variable item referente al campo de la BDD
 	private Double price; //declaramos de forma publica la variable price referente al campo de la BDD
 	private Long customer_id; //declaramos de forma publica la variable customer_id referente al campo de la BDD que a su vez sera una llave foranea
+	
+	@Transient // anotacion que usaremos si necesitamos que un campo no se conserve en la BDD
+	private String datos;
+	//esta la varible contendra los datos de los customer asociados con una orden ya que por su 
+	//referencia de tablas necesitariamos saber al implementar la consulta de Customer y Order
 	
 	public Pedidos() {
 		
@@ -58,5 +64,14 @@ public class Pedidos implements Serializable {
 	public void setCustomer_id(Long customer_id) {
 		this.customer_id = customer_id;
 	}
+
+	public String getDatos() {
+		return datos;
+	}
+
+	public void setDatos(String datos) {
+		this.datos = datos;
+	}
+	
 	
 }

@@ -22,7 +22,7 @@ apply plugin: 'war'
 thorntail {
   properties {
     swarm.http.host = 'localhost'
-    swarm.http.port = 8181
+    swarm.http.port = 8182
   }
 }
 
@@ -52,7 +52,6 @@ dependencies {
   implementation "io.thorntail:hibernate"
   implementation "commons-io:commons-io:2.4"
   implementation "org.postgresql:postgresql:42.2.8"
-  implementation "io.thorntail:microprofile-restclient"
   
 }
 

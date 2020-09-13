@@ -25,6 +25,14 @@ public class PedidosRest {
 	@Inject
 	private PedidoService servicio;
 	
+	@GET
+	@Path("/OrderCustomer")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Pedidos> getOrderCustomer(){ //metodo que devuelve los datos de nombre y apellido de las tablas cruzadas
+		List<Pedidos> OrdCust = servicio.getOrderCustomer();
+		return OrdCust;
+	}
+		
 	@GET //anotacion GET para obtener datos del servicio
 	@Produces(MediaType.APPLICATION_JSON) //formato de datos que producira el servidor
 	public List<Pedidos> obtenerPedidos(){
@@ -34,7 +42,7 @@ public class PedidosRest {
 	
 	@POST //anotacion POST para enviar datos
 	@Transactional
-	@Path("/crear") //path creado para ingresar un nuevo pedido
+	@Path("/insertar") //path creado para ingresar un nuevo pedido
 	@Consumes(MediaType.APPLICATION_JSON) //formato de datos que consumira el servidor
 	@Produces(MediaType.APPLICATION_JSON) //formato de datos que producira el servidor
 	public Pedidos insertPedidos(Pedidos ped) {
@@ -51,7 +59,7 @@ public class PedidosRest {
 	
 	@PUT //anotacion PUT para modificar datos del pedido
 	@Transactional //Anotacion transactional ya que se va a modificar la BDD 
-	@Path("/update") //path creado para ediatr los datos de un pedido
+	@Path("/actualizar") //path creado para ediatr los datos de un pedido
 	@Consumes(MediaType.APPLICATION_JSON) //formato de datos que consumira el servidor
 	@Produces(MediaType.APPLICATION_JSON) //formato de datos que producira el servidor
 	public Pedidos editPedidos(Pedidos ped) {
@@ -60,7 +68,7 @@ public class PedidosRest {
 	
 	@DELETE //anotacion DELETE que eliminara datos de la BDD por debajo
 	@Transactional //Anotacion transactional ya que se va a modificar la BDD
-	@Path("/delete/{id}") //path creado para eliminar un pedido por su id
+	@Path("/eliminar/{id}") //path creado para eliminar un pedido por su id
 	public void deletePedidos(@PathParam ("id") Long id) {
 		servicio.deletePedidos(id); //metodo que eliminara el pedido de la BDD proporcionado	
 	}
