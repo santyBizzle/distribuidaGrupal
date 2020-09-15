@@ -29,14 +29,14 @@ import model.Orders;
 
 public class ordersServiceImpl implements ordersService {
 
-	public String API_ORDERS = "https://cabezas-distribuida42.herokuapp.com";
+	public String API_ORDERS = "http://localhost:8181/orders";
 
 	private HttpClient httpClient = HttpClientBuilder.create().build();
 	private Gson gson = new Gson();
 
 	@Override
 	public Orders insertar(Orders o) throws IOException, JAXBException {
-		HttpPost post = new HttpPost(API_ORDERS + "/orders");
+		HttpPost post = new HttpPost(API_ORDERS + "/insertar");
 		StringEntity postingString = new StringEntity(gson.toJson(o));
 		post.setEntity(postingString);
 		post.setHeader("Content-type", "application/json");
@@ -58,7 +58,7 @@ public class ordersServiceImpl implements ordersService {
 	@Override
 	public boolean actualizar(Orders o) throws IOException, JAXBException {
 		
-		HttpPut put = new HttpPut(API_ORDERS + "/orders/" + o.getId());
+		HttpPut put = new HttpPut(API_ORDERS + "/actualizar");
 		StringEntity postingString = new StringEntity(gson.toJson(o));
 		put.setEntity(postingString);
 		put.setHeader("Content-type", "application/json");
@@ -73,7 +73,7 @@ public class ordersServiceImpl implements ordersService {
 
 	@Override
 	public boolean borrar(int idOrder) throws IOException, JAXBException {
-		HttpDelete delete = new HttpDelete(API_ORDERS + "/orders/" + idOrder);
+		HttpDelete delete = new HttpDelete(API_ORDERS + "/eliminar/" + idOrder);
 		delete.setHeader("Content-type", "application/json");
 		HttpResponse response = httpClient.execute(delete);
 
@@ -87,7 +87,7 @@ public class ordersServiceImpl implements ordersService {
 
 	@Override
 	public List<Orders> findAllOrders() throws IOException, JAXBException {
-		HttpGet get = new HttpGet(API_ORDERS + "/orders");
+		HttpGet get = new HttpGet(API_ORDERS+"/OrderCustomer");
 		HttpResponse response = httpClient.execute(get);
 
 		int statusCode = response.getStatusLine().getStatusCode();
@@ -106,7 +106,7 @@ public class ordersServiceImpl implements ordersService {
 
 	@Override
 	public Orders findOrder(int id) throws IOException, JAXBException {
-		HttpGet get = new HttpGet(API_ORDERS + "/orders/" + id);
+		HttpGet get = new HttpGet(API_ORDERS + "/order/" + id);
 		HttpResponse response = httpClient.execute(get);
 
 		int statusCode = response.getStatusLine().getStatusCode();

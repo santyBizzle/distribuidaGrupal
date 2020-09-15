@@ -45,7 +45,7 @@
 						<th>Id</th>
 						<th>Item</th>
 						<th>Precio</th>
-						<th>Customer_id</th>
+						<th>Customer</th>
 						<th>Administracion</th>
 					</tr>
 				</thead>
@@ -56,9 +56,9 @@
 						<tr>
 							<td><c:out value="${order.id}" /></td>
 							<td><c:out value="${order.item}" /></td>
-							<td><c:out value="${order.precio}" /></td>
+							<td><c:out value="${order.price}" /></td>
 
-							<td><c:out value="${order.customer_id}" /></td>
+							<td><c:out value="${order.datos}" /></td>
 							<td><a
 								href="editOrder?id_order=<c:out value='${order.id}' />">Editar</a>
 								&nbsp;&nbsp;&nbsp;&nbsp; <a

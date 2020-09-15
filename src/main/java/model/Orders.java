@@ -7,25 +7,76 @@ public class Orders implements Serializable{
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String item;
-	private  int precio;
+	private  Double price;
 	private int customer_id;
-
-	public Orders(String item, int precio, int customer_id) {
+	private String datos;
+	
+	public Orders(String item, Double price, int customer_id) {
 		super();
 		this.item = item;
-		this.precio = precio;
+		this.price = price;
 		this.customer_id = customer_id;
 	}
+	
+	
 
 
 
-	public Orders(Long id, String item, int precio, int customer_id) {
+	public Orders(Long id, String item, Double price, int customer_id) {
 		super();
 		this.id = id;
 		this.item = item;
-		this.precio = precio;
+		this.price = price;
 		this.customer_id = customer_id;
 	}
+
+
+
+
+	public Orders(Long id, String item, Double price, int customer_id, String datos) {
+		super();
+		this.id = id;
+		this.item = item;
+		this.price = price;
+		this.customer_id = customer_id;
+		this.datos = datos;
+	}
+
+
+
+
+
+	public String getDatos() {
+		return datos;
+	}
+
+
+
+
+
+	public void setDatos(String datos) {
+		this.datos = datos;
+	}
+
+
+
+
+
+	public Double getPrice() {
+		return price;
+	}
+
+
+
+
+
+
+	public void setPrice(Double price) {
+		this.price = price;
+	}
+
+
+
 
 
 
@@ -55,13 +106,6 @@ public class Orders implements Serializable{
 		this.item = item;
 	}
 
-	public int getPrecio() {
-		return precio;
-	}
-
-	public void setPrecio(int precio) {
-		this.precio = precio;
-	}
 
 	public int getCustomer_id() {
 		return customer_id;

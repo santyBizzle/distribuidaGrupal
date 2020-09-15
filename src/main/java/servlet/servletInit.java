@@ -54,7 +54,13 @@ public class servletInit extends HttpServlet {
 			break;
 
 		case "/newOrder":
-			showNewFormOrder(req, resp);
+
+			try {
+				showNewFormOrder(req, resp);
+			} catch (IOException | ServletException | JAXBException e1) {
+				e1.printStackTrace();
+			}
+
 			break;
 
 		case "/insert":
@@ -68,7 +74,7 @@ public class servletInit extends HttpServlet {
 
 			break;
 		case "/insertOrder":
-			try { 
+			try {
 				System.out.println("paracrear");
 
 				insertOrder(req, resp);
@@ -102,6 +108,7 @@ public class servletInit extends HttpServlet {
 
 		case "/editOrder":
 			try {
+				System.out.print("PAraActualizarOrder");
 				showEditOrder(req, resp);
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -110,7 +117,7 @@ public class servletInit extends HttpServlet {
 
 		case "/update":
 			try {
-				System.out.println("paraACtualizar");
+				System.out.println("paraACtualizarCustomer");
 				updateCustomer(req, resp);
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -120,6 +127,14 @@ public class servletInit extends HttpServlet {
 			try {
 				System.out.println("paraACtualizarOrder");
 				updateOrder(req, resp);
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			break;
+		case "/toCustomer":
+			try {
+				System.out.println("ListandoCustomerForOrders");
+				listAll(req, resp);
 			} catch (SQLException e) {
 				e.printStackTrace();
 			}
@@ -152,7 +167,7 @@ public class servletInit extends HttpServlet {
 		default:
 
 			try {
-				//listAll(req, resp);
+				// listAll(req, resp);
 				inicio(req, resp);
 			} catch (SQLException e) {
 				e.printStackTrace();
@@ -166,17 +181,17 @@ public class servletInit extends HttpServlet {
 
 	public void inicio(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, SQLException, ServletException {
-	
+
 		RequestDispatcher dispatcher = request.getRequestDispatcher("inicio.jsp");
 		dispatcher.forward(request, response);
 
 	}
+
 	public void listarOrdenes(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, SQLException, ServletException {
 		List<Orders> listorder = null;
 		try {
 			listorder = orderServicio.findAllOrders();
-			System.out.println("here>>>>" + listorder.get(0));
 		} catch (IOException | JAXBException e) {
 			e.printStackTrace();
 		}
@@ -186,7 +201,7 @@ public class servletInit extends HttpServlet {
 		dispatcher.forward(request, response);
 
 	}
-	
+
 	public void listarCustomers(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, SQLException, ServletException {
 		List<Customer> listcustomer = null;
@@ -201,7 +216,7 @@ public class servletInit extends HttpServlet {
 		dispatcher.forward(request, response);
 
 	}
-	
+
 	public void listAll(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, SQLException, ServletException {
 		List<Customer> listcustomer = null;
@@ -209,15 +224,12 @@ public class servletInit extends HttpServlet {
 		try {
 			listorder = orderServicio.findAllOrders();
 			listcustomer = customerServicio.findAllCustomers();
-			System.out.println("here>>>>" + listorder.get(0));
 		} catch (IOException | JAXBException e) {
 			e.printStackTrace();
 		}
 		request.setAttribute("listcustomer", listcustomer);
 
 		request.setAttribute("listorder", listorder);
-		RequestDispatcher dispatcher = request.getRequestDispatcher("user-list.jsp");
-		dispatcher.forward(request, response);
 
 	}
 
@@ -227,7 +239,6 @@ public class servletInit extends HttpServlet {
 		try {
 			listorder = orderServicio.findAllOrders();
 
-			System.out.println("here>>>>" + listorder.get(0));
 		} catch (IOException | JAXBException e) {
 			e.printStackTrace();
 		}
@@ -240,20 +251,16 @@ public class servletInit extends HttpServlet {
 	public void deleteCustomer(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, SQLException {
 		int id = Integer.parseInt(request.getParameter("id_customer"));
-		System.out.println("here>>>>" + id);
 		try {
 			customerServicio.borrar(id);
-			System.out.println("psotDelete");
 		} catch (IOException | JAXBException e) {
 			e.printStackTrace();
 		}
-		System.out.println("a lsitar");
 		response.sendRedirect("listarCustomers");
 	}
 
 	public void deleteOrder(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
 		int id = Integer.parseInt(request.getParameter("id_order"));
-		System.out.println("here>>>>" + id);
 		try {
 			orderServicio.borrar(id);
 			System.out.println("psotDelete");
@@ -271,7 +278,7 @@ public class servletInit extends HttpServlet {
 		String name = request.getParameter("name");
 		String surname = request.getParameter("surname");
 		Customer customer = new Customer(id, name, surname);
-		System.out.println("person" + customer);
+		System.out.println("c" + customer);
 
 		try {
 			customerServicio.actualizar(customer);
@@ -285,9 +292,9 @@ public class servletInit extends HttpServlet {
 
 		Long id = Long.parseLong(request.getParameter("id_order"));
 
-		System.out.println("actualizarOderId>>" + id);
 		String item = request.getParameter("item");
-		int precio = Integer.parseInt(request.getParameter("precio"));
+
+		double precio = Double.parseDouble(request.getParameter("precio"));
 		int customer_id = Integer.parseInt(request.getParameter("customer_id"));
 		Orders persona = new Orders(id, item, precio, customer_id);
 
@@ -307,7 +314,15 @@ public class servletInit extends HttpServlet {
 	}
 
 	public void showNewFormOrder(HttpServletRequest request, HttpServletResponse response)
-			throws IOException, ServletException {
+			throws IOException, ServletException, JAXBException {
+		List<Customer> listcustomer = null;
+		try {
+			listcustomer = customerServicio.findAllCustomers();
+
+		} catch (IOException | JAXBException e) {
+			e.printStackTrace();
+		}
+		request.setAttribute("listcustomer", listcustomer);
 		RequestDispatcher dispatcher = request.getRequestDispatcher("order-form.jsp");
 		dispatcher.forward(request, response);
 
@@ -321,7 +336,7 @@ public class servletInit extends HttpServlet {
 		Customer newcustomer = new Customer(name, surname);
 
 		try {
-			System.out.println("here insert>>>>" + newcustomer.getName());
+
 			customerServicio.insertar(newcustomer);
 		} catch (InterruptedException | ExecutionException | TimeoutException | IOException | JAXBException e) {
 
@@ -332,14 +347,14 @@ public class servletInit extends HttpServlet {
 	}
 
 	public void insertOrder(HttpServletRequest request, HttpServletResponse response) throws IOException, SQLException {
-
 		String item = request.getParameter("item");
-		int precio = Integer.parseInt(request.getParameter("precio"));
+		double precio = Double.parseDouble(request.getParameter("precio"));
 		int customer_id = Integer.parseInt(request.getParameter("customer_id"));
 		Orders newOrden = new Orders(item, precio, customer_id);
-		System.out.println("order precio>>>>" + newOrden.getPrecio());
+	
 
 		try {
+
 			System.out.println("here insert order>>>>" + newOrden.getItem());
 			orderServicio.insertar(newOrden);
 		} catch (InterruptedException | ExecutionException | TimeoutException | IOException | JAXBException e) {
@@ -353,16 +368,18 @@ public class servletInit extends HttpServlet {
 			throws IOException, SQLException, ServletException {
 
 		int id = Integer.parseInt(request.getParameter("id_customer"));
-		System.out.println("here>>>>" + id);
+	
 		Customer p = new Customer();
 
 		try {
 			p = customerServicio.findCustomer(id);
+		
 			request.setAttribute("customer", p);
 
 		} catch (IOException | JAXBException e) {
 			e.printStackTrace();
 		} finally {
+	
 			RequestDispatcher ds = request.getRequestDispatcher("customer-form.jsp");
 			ds.forward(request, response);
 
@@ -372,12 +389,13 @@ public class servletInit extends HttpServlet {
 
 	public void showEditOrder(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, SQLException, ServletException {
-		System.out.println("ddasd>>>>");
+		
 		int id = Integer.parseInt(request.getParameter("id_order"));
-		System.out.println("here>>>>" + id);
+	
 		Orders p = new Orders();
-
+		List<Customer> listcustomer = null;
 		try {
+			listcustomer = customerServicio.findAllCustomers();
 			p = orderServicio.findOrder(id);
 			System.out.println("orden>>>>" + p);
 			request.setAttribute("order", p);
@@ -386,7 +404,7 @@ public class servletInit extends HttpServlet {
 			e.printStackTrace();
 		} finally {
 			// System.out.println("req"+request.getAttribute(getServletInfo()));
-
+			request.setAttribute("listcustomer", listcustomer);
 			RequestDispatcher ds = request.getRequestDispatcher("order-form.jsp");
 			ds.forward(request, response);
 

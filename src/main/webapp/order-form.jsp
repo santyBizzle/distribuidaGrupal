@@ -66,24 +66,24 @@
 
 				<fieldset class="form-group">
 					<label>Precio</label> <input type="text"
-						value="<c:out value='${order.precio}' />" class="form-control"
+						value="<c:out value='${order.price}' />" class="form-control"
 						name="precio">
 				</fieldset>
+
+
 				<fieldset class="form-group">
-					<label>Customer Id</label> <input type="text"
-						value="<c:out value='${order.customer_id}' />"
-						class="form-control" name="customer_id">
-				</fieldset>
-				<!-- 
-				<fieldset class="form-group">
-					<label>Customer</label> <select name="Customer" id="customer">
-						<option value="volvo">Byron</option>
-						<option value="saab">Johann</option>
-						<option value="mercedes">Wally</option>
+
+					<label>Customer</label> <br /> <select name="customer_id"
+						style="width: 100%;">
+						<c:forEach items="${listcustomer}" var="custom">
+							<option value="${custom.id}">${custom.name}${custom.surname}</option>
+						</c:forEach>
 					</select>
+
 				</fieldset>
-				 -->
+
 				<button type="submit" class="btn btn-success">Save</button>
+
 				</form>
 			</div>
 		</div>

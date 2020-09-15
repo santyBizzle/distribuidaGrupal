@@ -31,14 +31,14 @@ import model.Customer;
 
 public class customerServiceImpl implements customerService {
 
-	public String URL_API_CUSTOMER ="https://cabezas-distribuida41.herokuapp.com";
+	public String URL_API_CUSTOMER ="http://localhost:8182/customer";
 	private HttpClient httpClient = HttpClientBuilder.create().build();
 	private Gson gson = new Gson();
 
 	@Override
 	public Customer insertar(Customer c)
 			throws InterruptedException, ExecutionException, TimeoutException, IOException, JAXBException {
-		HttpPost post = new HttpPost(URL_API_CUSTOMER + "/customers");
+		HttpPost post = new HttpPost(URL_API_CUSTOMER + "/insertar");
 
 		StringEntity postingString = new StringEntity(gson.toJson(c));
 		post.setEntity(postingString);
@@ -60,7 +60,7 @@ public class customerServiceImpl implements customerService {
 
 	@Override
 	public boolean actualizar(Customer c) throws IOException, JAXBException {
-		HttpPut put = new HttpPut(URL_API_CUSTOMER + "/customers/"+c.getId());
+		HttpPut put = new HttpPut(URL_API_CUSTOMER + "/actualizar");
 		StringEntity postingString = new StringEntity(gson.toJson(c));
 		put.setEntity(postingString);
 		put.setHeader("Content-type", "application/json");
@@ -75,7 +75,7 @@ public class customerServiceImpl implements customerService {
 
 	@Override
 	public boolean borrar(int idCustomer) throws IOException, JAXBException {
-		HttpDelete delete = new HttpDelete(URL_API_CUSTOMER + "/customers/" + idCustomer);
+		HttpDelete delete = new HttpDelete(URL_API_CUSTOMER + "/eliminar/" + idCustomer);
 		delete.setHeader("Content-type", "application/json");
 		HttpResponse response = httpClient.execute(delete);
 
@@ -88,7 +88,7 @@ public class customerServiceImpl implements customerService {
 
 	@Override
 	public List<Customer> findAllCustomers() throws IOException, JAXBException {
-		HttpGet get = new HttpGet(URL_API_CUSTOMER+"/customers");
+		HttpGet get = new HttpGet(URL_API_CUSTOMER);
 		HttpResponse response = httpClient.execute(get);
 
 		int statusCode = response.getStatusLine().getStatusCode();
@@ -107,7 +107,7 @@ public class customerServiceImpl implements customerService {
 
 	@Override
 	public Customer findCustomer(int id) throws IOException, JAXBException {
-		HttpGet get = new HttpGet(URL_API_CUSTOMER + "/customers/" + id);
+		HttpGet get = new HttpGet(URL_API_CUSTOMER +"/customer/"+ id);
 		HttpResponse response = httpClient.execute(get);
 
 		int statusCode = response.getStatusLine().getStatusCode();
