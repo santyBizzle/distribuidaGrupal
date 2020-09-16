@@ -30,10 +30,7 @@
 		</nav>
 	</header>
 	<br>
-
 	<div class="row">
-		<!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
-
 		<div class="container">
 			<h3 class="text-center">Lista de Orders</h3>
 			<hr>
@@ -50,9 +47,7 @@
 					</tr>
 				</thead>
 				<tbody>
-					<!--   for (Todo todo: todos) {  -->
 					<c:forEach var="order" items="${listorder}">
-
 						<tr>
 							<td><c:out value="${order.id}" /></td>
 							<td><c:out value="${order.item}" /></td>
@@ -65,8 +60,6 @@
 								href="deleteOrder?id_order=<c:out value='${order.id}' />">Eliminar</a></td>
 						</tr>
 					</c:forEach>
-					<!-- } -->
-
 				</tbody>
 
 			</table>

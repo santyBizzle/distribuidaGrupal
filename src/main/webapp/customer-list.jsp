@@ -4,10 +4,10 @@
 <html>
 <head>
 <title>User Management Application</title>
-   <link href="webjars/bootstrap/4.5.2/css/bootstrap.min.css"
-        rel="stylesheet">
-        <script src="webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <script src="webjars/jquery/1.9.1/jquery.min.js"></script>
+<link href="webjars/bootstrap/4.5.2/css/bootstrap.min.css"
+	rel="stylesheet">
+<script src="webjars/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script src="webjars/jquery/1.9.1/jquery.min.js"></script>
 <link rel="stylesheet"
 	href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
 	integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
@@ -17,9 +17,10 @@
 
 	<header>
 		<nav class="navbar navbar-expand-md navbar-dark"
-			style="background-color: red"  >
+			style="background-color: red">
 			<div>
-	<h3 class="text-center" style="color: white-space: ;" align="center">UNIVERSIDAD CENTRAL DEL ECUADOR - PROGRAMACION DISTRIBUIDA - GRUPO 3 </h3>
+				<h3 class="text-center" style="color: white-space:;" align="center">UNIVERSIDAD
+					CENTRAL DEL ECUADOR - PROGRAMACION DISTRIBUIDA - GRUPO 3</h3>
 			</div>
 
 			<ul class="navbar-nav">
@@ -36,11 +37,9 @@
 		<div class="container">
 			<h3 class="text-center">Lista de Customers</h3>
 			<hr>
-			
-				<a href="<%=request.getContextPath()%>/new" class="btn btn-success">Crear Customer</a>
-			
-			<br/>
-			<br/>
+
+			<a href="<%=request.getContextPath()%>/new" class="btn btn-success">Crear
+				Customer</a> <br /> <br />
 			<table class="table table-bordered">
 				<thead>
 					<tr>
@@ -67,9 +66,9 @@
 				</tbody>
 
 			</table>
-				<a href="<%=request.getContextPath()%>/" class="btn btn-success">Regresar</a>
+			<a href="<%=request.getContextPath()%>/" class="btn btn-success">Regresar</a>
 		</div>
 	</div>
-	
+
 </body>
 </html>

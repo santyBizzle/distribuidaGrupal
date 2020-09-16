@@ -9,10 +9,21 @@ import javax.xml.bind.JAXBException;
 
 import model.Orders;
 
+//Interfaz de los servicios a consumir de la API order
 public interface ordersService {
-	Orders insertar(Orders o) throws InterruptedException, ExecutionException, TimeoutException, IOException, JAXBException;
+	// Funcion para insertar orders
+	Orders insertar(Orders o)
+			throws InterruptedException, ExecutionException, TimeoutException, IOException, JAXBException;
+
+	// Funcion Que permitira la actualizacion de entidad order
 	boolean actualizar(Orders o) throws IOException, JAXBException;
+
+	// Funcion que eliminar registro order de la base de datos segun su id
 	boolean borrar(int idOrder) throws IOException, JAXBException;
-	  List<Orders> findAllOrders() throws IOException, JAXBException;
-	  public Orders findOrder(int id) throws IOException, JAXBException ;
+
+	// Funcion que lista todos los orders de la base de datos
+	List<Orders> findAllOrders() throws IOException, JAXBException;
+
+	// Funcion que lista el order de la base de datos segun su id
+	public Orders findOrder(int id) throws IOException, JAXBException;
 }

@@ -2,20 +2,21 @@ package model;
 
 import java.io.Serializable;
 
-public class Customer implements Serializable{
+//Entidad de Customer con sus atributos
+public class Customer implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private Long id;
 	private String name;
 	private String surname;
-	
+
 	public Customer(Long id, String name, String surname) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.surname = surname;
 	}
-	
+
 	public Customer(String name, String surname) {
 		super();
 		this.name = name;
@@ -23,7 +24,7 @@ public class Customer implements Serializable{
 	}
 
 	public Customer() {
-		
+
 	}
 
 	public Long getId() {
@@ -49,5 +50,5 @@ public class Customer implements Serializable{
 	public void setSurname(String surname) {
 		this.surname = surname;
 	}
-	
+
 }

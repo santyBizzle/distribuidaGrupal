@@ -19,11 +19,11 @@
 		<nav class="navbar navbar-expand-md navbar-dark"
 			style="background-color: red">
 			<div class="container text-center">
-			<div>
-				<h3 class="text-center" style="color: white-space:;" align="center">UNIVERSIDAD
-					CENTRAL DEL ECUADOR - PROGRAMACION DISTRIBUIDA-GRUPO3</h3>
+				<div>
+					<h3 class="text-center" style="color: white-space:;" align="center">UNIVERSIDAD
+						CENTRAL DEL ECUADOR - PROGRAMACION DISTRIBUIDA-GRUPO3</h3>
+				</div>
 			</div>
-</div>
 			<ul class="navbar-nav">
 				<li><a href="<%=request.getContextPath()%>/list"
 					class="nav-link"></a></li>
@@ -36,17 +36,17 @@
 		<!-- <div class="alert alert-success" *ngIf='message'>{{message}}</div> -->
 
 		<div class="container">
-			<h3 class="text-center">Realizado por : Freddy Roman - Byron Cabezas - Stalyn Gunza </h3>
+			<h3 class="text-center">Realizado por : Freddy Roman - Byron
+				Cabezas - Stalyn Gunza</h3>
 			<hr>
 			<div class="container text-center">
 
 				<a href="<%=request.getContextPath()%>/listarCustomers"
-					class="btn btn-success">Administrar Customers</a>
-					
-						<a href="<%=request.getContextPath()%>/listarOrders"
+					class="btn btn-success">Administrar Customers</a> <a
+					href="<%=request.getContextPath()%>/listarOrders"
 					class="btn btn-success">Administrar Orders</a>
 			</div>
-		
+
 
 			<br>
 

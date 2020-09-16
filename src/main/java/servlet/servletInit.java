@@ -48,11 +48,14 @@ public class servletInit extends HttpServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String action = req.getServletPath();
 
+		// Se switchean las posibles rutas para consumir los servicios rest
 		switch (action) {
+		// Formulario para crear un nuevo customer
 		case "/new":
 			showNewForm(req, resp);
 			break;
 
+		// Formulario para crear un nuevo Order
 		case "/newOrder":
 
 			try {
@@ -62,7 +65,7 @@ public class servletInit extends HttpServlet {
 			}
 
 			break;
-
+		// Servicio de insertar customer
 		case "/insert":
 			try {
 				System.out.println("paracrear");
@@ -73,6 +76,7 @@ public class servletInit extends HttpServlet {
 			}
 
 			break;
+		// Servicio de insertar Order
 		case "/insertOrder":
 			try {
 				System.out.println("paracrear");
@@ -82,6 +86,8 @@ public class servletInit extends HttpServlet {
 				e.printStackTrace();
 			}
 
+			// Servicio de eliminar customer
+
 			break;
 		case "/delete":
 			try {
@@ -90,6 +96,7 @@ public class servletInit extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		// Servicio de eliminar order
 		case "/deleteOrder":
 			try {
 				deleteOrder(req, resp);
@@ -98,6 +105,7 @@ public class servletInit extends HttpServlet {
 			}
 			break;
 
+		// Formulario para actualizar un customer
 		case "/edit":
 			try {
 				showEdit(req, resp);
@@ -105,7 +113,7 @@ public class servletInit extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
-
+		// Formulario para actualizar un order
 		case "/editOrder":
 			try {
 				System.out.print("PAraActualizarOrder");
@@ -131,6 +139,8 @@ public class servletInit extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+
+		// Permite visualizar los customers disponibles
 		case "/toCustomer":
 			try {
 				System.out.println("ListandoCustomerForOrders");
@@ -140,6 +150,7 @@ public class servletInit extends HttpServlet {
 			}
 			break;
 
+		// Vista para listar Orders
 		case "/listOrder":
 			try {
 				System.out.println("paraACtualizarOrder");
@@ -156,6 +167,7 @@ public class servletInit extends HttpServlet {
 				e.printStackTrace();
 			}
 			break;
+		// Vista para listar customers
 		case "/listarCustomers":
 			try {
 				System.out.println("ListandoCustomers");
@@ -166,6 +178,7 @@ public class servletInit extends HttpServlet {
 			break;
 		default:
 
+			// Pagina de inicio a la aplicacion
 			try {
 				// listAll(req, resp);
 				inicio(req, resp);
@@ -351,7 +364,6 @@ public class servletInit extends HttpServlet {
 		double precio = Double.parseDouble(request.getParameter("precio"));
 		int customer_id = Integer.parseInt(request.getParameter("customer_id"));
 		Orders newOrden = new Orders(item, precio, customer_id);
-	
 
 		try {
 
@@ -368,18 +380,18 @@ public class servletInit extends HttpServlet {
 			throws IOException, SQLException, ServletException {
 
 		int id = Integer.parseInt(request.getParameter("id_customer"));
-	
+
 		Customer p = new Customer();
 
 		try {
 			p = customerServicio.findCustomer(id);
-		
+
 			request.setAttribute("customer", p);
 
 		} catch (IOException | JAXBException e) {
 			e.printStackTrace();
 		} finally {
-	
+
 			RequestDispatcher ds = request.getRequestDispatcher("customer-form.jsp");
 			ds.forward(request, response);
 
@@ -389,9 +401,9 @@ public class servletInit extends HttpServlet {
 
 	public void showEditOrder(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, SQLException, ServletException {
-		
+
 		int id = Integer.parseInt(request.getParameter("id_order"));
-	
+
 		Orders p = new Orders();
 		List<Customer> listcustomer = null;
 		try {

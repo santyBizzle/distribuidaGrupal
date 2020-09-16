@@ -31,10 +31,17 @@ import model.Customer;
 
 public class customerServiceImpl implements customerService {
 
-	public String URL_API_CUSTOMER ="http://localhost:8182/customer";
+	// Se define la url que apunta la api customer
+	public String URL_API_CUSTOMER = "http://localhost:8182/customer";
+
+	// Se define una variable de tipo httpCliente para realizar las peticiones rest
 	private HttpClient httpClient = HttpClientBuilder.create().build();
 	private Gson gson = new Gson();
 
+	/**
+	 * Funcion para insertar customers segun la URL de la api definida se obtiene la
+	 * respuesta de la peticion POST y nos regresa la entidad
+	 */
 	@Override
 	public Customer insertar(Customer c)
 			throws InterruptedException, ExecutionException, TimeoutException, IOException, JAXBException {
@@ -58,6 +65,11 @@ public class customerServiceImpl implements customerService {
 		return (Customer) jaxbUnmarshaller.unmarshal(new StringReader(apiOutput));
 	}
 
+	/**
+	 * Funcion para actualizar customers se obtiene la respuesta de la peticion PUT
+	 * que recibe una entidad customers y nos regresa un booleano que confirma la
+	 * actulizacion
+	 */
 	@Override
 	public boolean actualizar(Customer c) throws IOException, JAXBException {
 		HttpPut put = new HttpPut(URL_API_CUSTOMER + "/actualizar");
@@ -73,6 +85,11 @@ public class customerServiceImpl implements customerService {
 		return true;
 	}
 
+	/**
+	 * Funcion para eliminar customers se obtiene la respuesta de la peticion tipo
+	 * DELETE que recibe el id del customer y nos regresa un booleano que confirma
+	 * la eliminacion del registro
+	 */
 	@Override
 	public boolean borrar(int idCustomer) throws IOException, JAXBException {
 		HttpDelete delete = new HttpDelete(URL_API_CUSTOMER + "/eliminar/" + idCustomer);
@@ -80,12 +97,17 @@ public class customerServiceImpl implements customerService {
 		HttpResponse response = httpClient.execute(delete);
 
 		int statusCode = response.getStatusLine().getStatusCode();
-		if (statusCode ==500) {
+		if (statusCode == 500) {
 			throw new RuntimeException("Failed with HTTP error code : " + statusCode);
 		}
 		return true;
 	}
 
+	/**
+	 * Funcion para listar todos los customers se obtiene la respuesta de la
+	 * peticion tipo GET retorna una lista seteada con los datos de todas las
+	 * customers de la base
+	 */
 	@Override
 	public List<Customer> findAllCustomers() throws IOException, JAXBException {
 		HttpGet get = new HttpGet(URL_API_CUSTOMER);
@@ -105,9 +127,13 @@ public class customerServiceImpl implements customerService {
 		return gson.fromJson(apiOutput, userListType);
 	}
 
+	/**
+	 * Funcion para listar customer por id se obtiene la respuesta de la peticion
+	 * tipo GET retorna un las customer segun el parametro id enviado
+	 */
 	@Override
 	public Customer findCustomer(int id) throws IOException, JAXBException {
-		HttpGet get = new HttpGet(URL_API_CUSTOMER +"/customer/"+ id);
+		HttpGet get = new HttpGet(URL_API_CUSTOMER + "/customer/" + id);
 		HttpResponse response = httpClient.execute(get);
 
 		int statusCode = response.getStatusLine().getStatusCode();
@@ -118,7 +144,7 @@ public class customerServiceImpl implements customerService {
 		HttpEntity httpEntity = response.getEntity();
 		String apiOutput = EntityUtils.toString(httpEntity);
 		Gson gson = new Gson();
-		Customer p = gson.fromJson(apiOutput,Customer.class);
+		Customer p = gson.fromJson(apiOutput, Customer.class);
 		return p;
 	}
 
